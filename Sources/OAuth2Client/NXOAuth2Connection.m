@@ -49,8 +49,8 @@
 - (id)initWithRequest:(NSMutableURLRequest *)aRequest
 	requestParameters:(NSDictionary *)someRequestParameters
 		  oauthClient:(NXOAuth2Client *)aClient
-               finish:(void (^)(void))finishBlock 
-                 fail:(void (^)(NSError *error))failBlock;
+               finish:(NXOAuth2ConnectionFinishHandler)finishBlock 
+                 fail:(NXOAuth2ConnectionFailHandler)failBlock;
 {
     if ([self initWithRequest:aRequest requestParameters:someRequestParameters oauthClient:aClient delegate:nil]) {
         finish = Block_copy(finishBlock);
@@ -446,7 +446,7 @@
 			[delegate oauthConnection:self didFinishWithData:data];
 		}
 #if NX_BLOCKS_AVAILABLE && NS_BLOCKS_AVAILABLE
-        if (finish) finish();
+        if (finish) finish(self);
 #endif
 	} else {
 		if (self.statusCode == 401) {
@@ -476,7 +476,7 @@
 			[delegate oauthConnection:self didFailWithError:error];
 		}
 #if NX_BLOCKS_AVAILABLE && NS_BLOCKS_AVAILABLE
-        if (fail) fail(error);
+        if (fail) fail(self, error);
 #endif
 	}
 }
@@ -494,7 +494,7 @@
 		[delegate oauthConnection:self didFailWithError:error];
 	}
 #if NX_BLOCKS_AVAILABLE && NS_BLOCKS_AVAILABLE
-    if (fail) fail(error);
+    if (fail) fail(self, error);
 #endif
 }
 

@@ -16,6 +16,13 @@
 #import "NXOAuth2Constants.h"
 
 @class NXOAuth2Client;
+@class NXOAuth2Connection;
+
+#if NX_BLOCKS_AVAILABLE && NS_BLOCKS_AVAILABLE
+typedef void(^NXOAuth2ConnectionFinishHandler)(NXOAuth2Connection *connection);
+typedef void(^NXOAuth2ConnectionFailHandler)(NXOAuth2Connection *connection, NSError *error);
+#endif
+
 @protocol NXOAuth2ConnectionDelegate;
 
 
@@ -57,8 +64,8 @@
 	NSObject<NXOAuth2ConnectionDelegate>	*delegate;	// assigned
     
 #if NX_BLOCKS_AVAILABLE && NS_BLOCKS_AVAILABLE
-    void (^finish)(void);
-    void (^fail)(NSError *error);
+    NXOAuth2ConnectionFinishHandler finish;
+    NXOAuth2ConnectionFailHandler fail;
 #endif
 	
 	BOOL				sendConnectionDidEndNotification;
@@ -80,8 +87,8 @@
 - (id)initWithRequest:(NSMutableURLRequest *)request
 	requestParameters:(NSDictionary *)requestParameters
 		  oauthClient:(NXOAuth2Client *)client
-               finish:(void (^)(void))finishBlock 
-                 fail:(void (^)(NSError *error))failBlock;
+               finish:(NXOAuth2ConnectionFinishHandler)finishBlock 
+                 fail:(NXOAuth2ConnectionFailHandler)failBlock;
 #endif
 
 
