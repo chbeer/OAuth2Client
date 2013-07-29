@@ -21,8 +21,11 @@
 - (void)oauthClientNeedsAuthentication:(NXOAuth2Client *)client;
 
 @optional
+- (NSDictionary*)oauthClientAdditionalParametersForAccessTokenRequest:(NXOAuth2Client *)client;
 - (void)oauthClientDidGetAccessToken:(NXOAuth2Client *)client;
 - (void)oauthClientDidLoseAccessToken:(NXOAuth2Client *)client;
 - (void)oauthClient:(NXOAuth2Client *)client didFailToGetAccessTokenWithError:(NSError *)error;
+
+- (void)oauthClient:(NXOAuth2Client *)client didGetAccessTokenWithBody:(NSData*)httpBody;
 
 @end

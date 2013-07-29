@@ -151,11 +151,18 @@ NSString * const NXOAuth2ClientConnectionContextTokenRefresh = @"tokenRefresh";
 
 - (NSURL *)authorizationURLWithRedirectURL:(NSURL *)redirectURL;
 {
-	return [authorizeURL nxoauth2_URLByAddingParameters:[NSDictionary dictionaryWithObjectsAndKeys:
-														 @"code", @"response_type",
-														 clientId, @"client_id",
-														 [redirectURL absoluteString], @"redirect_uri",
-														 nil]];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                       @"code", @"response_type",
+                                       clientId, @"client_id",
+                                       [redirectURL absoluteString], @"redirect_uri",
+                                       nil];
+    
+    if ([self.delegate respondsToSelector:@selector(oauthClientAdditionalParametersForAccessTokenRequest:)]) {
+        NSDictionary *additionalParameters = [self.delegate oauthClientAdditionalParametersForAccessTokenRequest:self];
+        [parameters addEntriesFromDictionary:additionalParameters];
+    }
+    
+	return [authorizeURL nxoauth2_URLByAddingParameters:parameters];
 }
 
 
@@ -310,6 +317,10 @@ NSString * const NXOAuth2ClientConnectionContextTokenRefresh = @"tokenRefresh";
 		NXOAuth2AccessToken *newToken = [NXOAuth2AccessToken tokenWithResponseBody:result];
 		NSAssert(newToken != nil, @"invalid response?");
 		self.accessToken = newToken;
+        
+        if ([self.delegate respondsToSelector:@selector(oauthClient:didGetAccessTokenWithBody:)]) {
+            [self.delegate oauthClient:self didGetAccessTokenWithBody:data];
+        }
 		
 		for (NXOAuth2Connection *retryConnection in waitingConnections) {
 			[retryConnection retry];
