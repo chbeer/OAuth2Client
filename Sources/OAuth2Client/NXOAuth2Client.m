@@ -286,7 +286,7 @@ NSString * const NXOAuth2ClientConnectionContextTokenRefresh = @"tokenRefresh";
 		[waitingConnections addObject:retryConnection];
 	}
 	if (!authConnection) {
-		NSAssert((accessToken.refreshToken != nil), @"invalid state");
+//		NSAssert((accessToken.refreshToken != nil), @"invalid state");
 		NSMutableURLRequest *tokenRequest = [NSMutableURLRequest requestWithURL:tokenURL];
         [tokenRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
 		[tokenRequest setHTTPMethod:@"POST"];
