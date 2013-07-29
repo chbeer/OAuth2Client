@@ -232,6 +232,7 @@ NSString * const NXOAuth2ClientConnectionContextTokenRefresh = @"tokenRefresh";
 	NSAssert1(!authConnection, @"authConnection already running with: %@", authConnection);
 	
 	NSMutableURLRequest *tokenRequest = [NSMutableURLRequest requestWithURL:tokenURL];
+    [tokenRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
 	[tokenRequest setHTTPMethod:@"POST"];
 	[authConnection cancel]; [authConnection release]; // just to be sure
 	authConnection = [[NXOAuth2Connection alloc] initWithRequest:tokenRequest
@@ -254,6 +255,7 @@ NSString * const NXOAuth2ClientConnectionContextTokenRefresh = @"tokenRefresh";
 	NSAssert1(!authConnection, @"authConnection already running with: %@", authConnection);
 	
 	NSMutableURLRequest *tokenRequest = [NSMutableURLRequest requestWithURL:tokenURL];
+    [tokenRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
 	[tokenRequest setHTTPMethod:@"POST"];
 	[authConnection cancel]; [authConnection release]; // just to be sure
 	authConnection = [[NXOAuth2Connection alloc] initWithRequest:tokenRequest
@@ -286,6 +288,7 @@ NSString * const NXOAuth2ClientConnectionContextTokenRefresh = @"tokenRefresh";
 	if (!authConnection) {
 		NSAssert((accessToken.refreshToken != nil), @"invalid state");
 		NSMutableURLRequest *tokenRequest = [NSMutableURLRequest requestWithURL:tokenURL];
+        [tokenRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
 		[tokenRequest setHTTPMethod:@"POST"];
 		[authConnection cancel]; [authConnection release]; // not needed, but looks more clean to me :)
 		authConnection = [[NXOAuth2Connection alloc] initWithRequest:tokenRequest
