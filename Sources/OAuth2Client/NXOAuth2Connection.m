@@ -182,7 +182,7 @@
 			return nil;
 		}
 		
-		oauthAuthorizationHeader = [NSString stringWithFormat:@"OAuth %@", client.accessToken.accessToken];
+		oauthAuthorizationHeader = [NSString stringWithFormat:@"%@ %@", client.authenticationScheme, client.accessToken.accessToken];
 	}
 	
 	NSMutableURLRequest *startRequest = [[request mutableCopy] autorelease];

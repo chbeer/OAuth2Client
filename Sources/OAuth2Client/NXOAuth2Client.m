@@ -51,6 +51,8 @@ NSString * const NXOAuth2ClientConnectionContextTokenRefresh = @"tokenRefresh";
 		clientSecret = [aClientSecret copy];
 		authorizeURL = [anAuthorizeURL copy];
 		tokenURL = [aTokenURL copy];
+        
+        self.authenticationScheme = @"OAuth";
 		
 		self.delegate = aDelegate;
 	}
@@ -71,7 +73,7 @@ NSString * const NXOAuth2ClientConnectionContextTokenRefresh = @"tokenRefresh";
 
 #pragma mark Accessors
 
-@synthesize clientId, clientSecret, userAgent, delegate, persistent, accessToken;
+@synthesize clientId, clientSecret, userAgent, delegate, persistent, accessToken, authenticationScheme;
 
 - (void) setPersistent:(BOOL)shouldPersist;
 {

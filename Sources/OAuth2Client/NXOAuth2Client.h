@@ -49,6 +49,8 @@ extern NSString * const NXOAuth2ClientConnectionContextTokenRefresh;
 	NXOAuth2AccessToken	*accessToken;
 	NSMutableArray	*waitingConnections; //for connections that are waiting for successful authorisation
 	NSInteger		refreshConnectionDidRetryCount;
+    
+    NSString        *authenticationScheme;
 	
 	// delegates
 	NSObject<NXOAuth2ClientDelegate>*	delegate;	// assigned
@@ -59,6 +61,7 @@ extern NSString * const NXOAuth2ClientConnectionContextTokenRefresh;
 
 @property (nonatomic, copy) NSString *userAgent;
 
+@property (nonatomic, copy)   NSString              *authenticationScheme;
 @property (nonatomic, retain) NXOAuth2AccessToken	*accessToken;
 @property (nonatomic, assign) NSObject<NXOAuth2ClientDelegate>*	delegate;
 
