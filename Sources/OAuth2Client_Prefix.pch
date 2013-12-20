@@ -13,4 +13,7 @@
 
 #ifdef __OBJC__
 #import <Foundation/Foundation.h>
+
+#define NX_BLOCKS_AVAILABLE 1
+
 #endif

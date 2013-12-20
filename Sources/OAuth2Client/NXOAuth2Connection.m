@@ -45,7 +45,7 @@
 
 #pragma mark Lifecycle
 
-#if NX_BLOCKS_AVAILABLE && NS_BLOCKS_AVAILABLE
+//#if NX_BLOCKS_AVAILABLE && NS_BLOCKS_AVAILABLE
 - (id)initWithRequest:(NSMutableURLRequest *)aRequest
 	requestParameters:(NSDictionary *)someRequestParameters
 		  oauthClient:(NXOAuth2Client *)aClient
@@ -58,7 +58,7 @@
     }
     return self;
 }
-#endif
+//#endif
 
 - (id)initWithRequest:(NSMutableURLRequest *)aRequest
 	requestParameters:(NSDictionary *)someRequestParameters
@@ -84,10 +84,10 @@
 	if (sendConnectionDidEndNotification) [[NSNotificationCenter defaultCenter] postNotificationName:NXOAuth2DidEndConnection object:self];
 	sendConnectionDidEndNotification = NO;
 	
-#if NX_BLOCKS_AVAILABLE && NS_BLOCKS_AVAILABLE
+//#if NX_BLOCKS_AVAILABLE && NS_BLOCKS_AVAILABLE
     Block_release(fail);
     Block_release(finish);
-#endif
+//#endif
 	[connection cancel];
 	[connection release];
 	[data release];
@@ -445,9 +445,9 @@
 		if ([delegate respondsToSelector:@selector(oauthConnection:didFinishWithData:)]) {
 			[delegate oauthConnection:self didFinishWithData:data];
 		}
-#if NX_BLOCKS_AVAILABLE && NS_BLOCKS_AVAILABLE
+//#if NX_BLOCKS_AVAILABLE && NS_BLOCKS_AVAILABLE
         if (finish) finish(self);
-#endif
+//#endif
 	} else {
 		if (self.statusCode == 401) {
 			// check if token is still valid
@@ -475,9 +475,9 @@
 		if ([delegate respondsToSelector:@selector(oauthConnection:didFailWithError:)]) {
 			[delegate oauthConnection:self didFailWithError:error];
 		}
-#if NX_BLOCKS_AVAILABLE && NS_BLOCKS_AVAILABLE
+//#if NX_BLOCKS_AVAILABLE && NS_BLOCKS_AVAILABLE
         if (fail) fail(self, error);
-#endif
+//#endif
 	}
 }
 
@@ -493,9 +493,9 @@
 	if ([delegate respondsToSelector:@selector(oauthConnection:didFailWithError:)]) {
 		[delegate oauthConnection:self didFailWithError:error];
 	}
-#if NX_BLOCKS_AVAILABLE && NS_BLOCKS_AVAILABLE
+//#if NX_BLOCKS_AVAILABLE && NS_BLOCKS_AVAILABLE
     if (fail) fail(self, error);
-#endif
+//#endif
 }
 
 - (NSURLRequest *)connection:(NSURLConnection *)aConnection willSendRequest:(NSURLRequest *)aRequest redirectResponse:(NSURLResponse *)aRedirectResponse;

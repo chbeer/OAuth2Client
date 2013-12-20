@@ -18,10 +18,10 @@
 @class NXOAuth2Client;
 @class NXOAuth2Connection;
 
-#if NX_BLOCKS_AVAILABLE && NS_BLOCKS_AVAILABLE
+//#if NX_BLOCKS_AVAILABLE && NS_BLOCKS_AVAILABLE
 typedef void(^NXOAuth2ConnectionFinishHandler)(NXOAuth2Connection *connection);
 typedef void(^NXOAuth2ConnectionFailHandler)(NXOAuth2Connection *connection, NSError *error);
-#endif
+//#endif
 
 @protocol NXOAuth2ConnectionDelegate;
 
@@ -63,10 +63,10 @@ typedef void(^NXOAuth2ConnectionFailHandler)(NXOAuth2Connection *connection, NSE
 	
 	NSObject<NXOAuth2ConnectionDelegate>	*delegate;	// assigned
     
-#if NX_BLOCKS_AVAILABLE && NS_BLOCKS_AVAILABLE
+//#if NX_BLOCKS_AVAILABLE && NS_BLOCKS_AVAILABLE
     NXOAuth2ConnectionFinishHandler finish;
     NXOAuth2ConnectionFailHandler fail;
-#endif
+//#endif
 	
 	BOOL				sendConnectionDidEndNotification;
     
@@ -83,13 +83,13 @@ typedef void(^NXOAuth2ConnectionFailHandler)(NXOAuth2Connection *connection, NSE
 @property (retain) id context;
 @property (retain) NSDictionary *userInfo;
 
-#if NX_BLOCKS_AVAILABLE && NS_BLOCKS_AVAILABLE
+//#if NX_BLOCKS_AVAILABLE && NS_BLOCKS_AVAILABLE
 - (id)initWithRequest:(NSMutableURLRequest *)request
 	requestParameters:(NSDictionary *)requestParameters
 		  oauthClient:(NXOAuth2Client *)client
                finish:(NXOAuth2ConnectionFinishHandler)finishBlock 
                  fail:(NXOAuth2ConnectionFailHandler)failBlock;
-#endif
+//#endif
 
 
 - (id)initWithRequest:(NSMutableURLRequest *)request
